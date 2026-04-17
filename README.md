@@ -2,7 +2,7 @@
 
 MMM-TempsHA is a MagicMirror² module that displays temperature data from Home Assistant in a clean and modern dashboard style.
 
-![Screenshot](Screenshot.png)
+![Screenshot](screenshot.png)
 
 ## Features
 
