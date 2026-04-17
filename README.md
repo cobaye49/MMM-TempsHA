@@ -71,7 +71,7 @@ Add the following :
 
 Restart MagicMirror:
 ```bash
-   pm2 restart mm
+pm2 restart mm
 ```
 
 ## Notes
