@@ -51,7 +51,7 @@ Add the following :
  config: {
   host: "YOUR HA IP",
   token: "YOUR TOKEN",
-  entities: [          // feel to add or remove entities depending on the number of sensors you have
+  entities: [          // feel free to add or remove entities depending on the number of sensors you have
     {
       entity: "sensor.xxx", // remplace by the sensorID
       label: "room name", // remplace by your room name
