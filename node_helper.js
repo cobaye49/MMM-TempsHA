@@ -6,7 +6,7 @@ const fetch = (...args) =>
 module.exports = NodeHelper.create({
 
   start: function () {
-    console.log("✅ MMM-TempsHA helper OK");
+    console.log("MMM-TempsHA helper OK");
   },
 
   socketNotificationReceived: function (notification, payload) {
@@ -50,7 +50,7 @@ module.exports = NodeHelper.create({
       this.sendSocketNotification("TEMPS_RESULT", results);
 
     } catch (err) {
-      console.error("❌ HA error:", err);
+      console.error("HA error:", err);
     }
   }
 
