@@ -64,7 +64,6 @@ config: {
   ]
 }
 ```
-Modify 'sensor.name' 
 
 4. Restart MagicMirror:
 ```bash
