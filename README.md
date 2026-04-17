@@ -21,7 +21,7 @@ MMM-TempsHA is a MagicMirror² module that displays temperature data from Home A
 ## Installation
 
 1. Navigate to your MagicMirror modules folder:
-   cd ~/MagicMirror/modules
+  ```cd ~/MagicMirror/modules```
 
 2. Clone this repository:
    git clone https://github.com/cobaye49/MMM-TempsHA.git
@@ -43,12 +43,14 @@ Add the following :
     host: "YOUR_HOME_ASSISTANT_IP",
     token: "YOUR_LONG_LIVED_TOKEN",
     entities: [
-      "sensor.temp_chambre_temperature",
-      "sensor.temp_salon_temperature"
+      "sensor.name", 
+      "sensor.name"
     ]
   }
-}
+},
 ```
+Modify 'sensor.name' 
+
 3. Restart MagicMirror:
 ```bash
    pm2 restart mm
