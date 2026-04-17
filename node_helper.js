@@ -1,12 +1,15 @@
 const NodeHelper = require("node_helper");
 
+const fetch = (...args) =>
+  import("node-fetch").then(({ default: fetch }) => fetch(...args));
+
 module.exports = NodeHelper.create({
 
   start: function () {
-    console.log("✅ Node helper MMM-TempsHA OK");
+    console.log("✅ MMM-TempsHA helper OK");
   },
 
-  socketNotificationReceived: function(notification, payload) {
+  socketNotificationReceived: function (notification, payload) {
     if (notification === "GET_TEMPS") {
       this.getTemps(payload);
     }
@@ -14,35 +17,40 @@ module.exports = NodeHelper.create({
 
   async getTemps(config) {
     try {
-      const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
+      const promises = config.entities.map(async (item) => {
 
-      const entities = config.entities;
-      let result = {};
+        const entity = typeof item === "string" ? item : item.entity;
 
-      for (let entity of entities) {
-        const res = await fetch(`http://${config.host}:8123/api/states/${entity}`, {
-          headers: {
-            Authorization: `Bearer ${config.token}`
+        const res = await fetch(
+          `http://${config.host}:8123/api/states/${entity}`,
+          {
+            headers: {
+              Authorization: `Bearer ${config.token}`
+            }
           }
-        });
+        );
 
-        const text = await res.text();
-
-        let data;
-        try {
-          data = JSON.parse(text);
-        } catch (e) {
-          console.error("❌ JSON invalide :", text);
-          continue;
+        if (!res.ok) {
+          return {
+            entity,
+            state: "error"
+          };
         }
 
-        result[entity] = data.state;
-      }
+        const data = await res.json();
 
-      this.sendSocketNotification("TEMPS_RESULT", result);
+        return {
+          entity,
+          state: data.state
+        };
+      });
+
+      const results = await Promise.all(promises);
+
+      this.sendSocketNotification("TEMPS_RESULT", results);
 
     } catch (err) {
-      console.error("❌ Erreur HA:", err);
+      console.error("❌ HA error:", err);
     }
   }
 
