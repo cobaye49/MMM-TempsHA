@@ -21,7 +21,7 @@ MMM-TempsHA is a MagicMirror² module that displays temperature data from Home A
 ## Installation
 
 1. Navigate to your MagicMirror modules folder:
-  ```cd ~/MagicMirror/modules```
+```cd ~/MagicMirror/modules```
 
 2. Clone this repository:
    git clone https://github.com/cobaye49/MMM-TempsHA.git
