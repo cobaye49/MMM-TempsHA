@@ -47,7 +47,7 @@ Add the following :
 {
  module: "MMM-TempsHA",
  position: "top_center",
- header: "Températures",
+ header: "HA Temperature Sensors",
  config: {
   host: "YOUR HA IP",
   token: "YOUR TOKEN",
