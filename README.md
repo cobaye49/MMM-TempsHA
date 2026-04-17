@@ -46,14 +46,24 @@ Add the following :
   module: "MMM-TempsHA",
   position: "top_center",
   config: {
-    host: "YOUR_HOME_ASSISTANT_IP",
-    token: "YOUR_LONG_LIVED_TOKEN",
-    entities: [
-      "sensor.name", 
-      "sensor.name"
+    host: "192.168.1.231",
+    token: "YOUR_TOKEN",
+    sensors: [
+      {
+        entity: "sensor.name",
+        name: "name"
+      },
+      {
+        entity: "sensor.name",
+        name: "name"
+      },
+      {
+        entity: "sensor.name",
+        name: "name"
+      }
     ]
   }
-},
+}
 ```
 Modify 'sensor.name' 
 
