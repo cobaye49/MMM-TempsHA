@@ -36,7 +36,7 @@ npm install
 
 ## Configuration
 
-Open your MagicMirror config file:
+Edit your MagicMirror config file:
 
 ```bash
 nano ~/MagicMirror/config/config.js
@@ -69,7 +69,7 @@ Add the following :
 },
 ```
 
-4. Restart MagicMirror:
+Restart MagicMirror:
 ```bash
    pm2 restart mm
 ```
@@ -79,7 +79,3 @@ Add the following :
 - Make sure your Home Assistant API is accessible from your Raspberry Pi
 - Ensure your token is valid
 - Entities must exist in Home Assistant
-
-## Author
-
-Created for personal home dashboard usage.
