@@ -13,7 +13,6 @@ MMM-TempsHA is a MagicMirror² module that displays temperature data from Home A
   - Green for normal temperatures
   - Red for high temperatures
 - Lightweight and fast
-- Fully customizable (entities, names, styles)
 
 ## Requirements
 
