@@ -26,13 +26,16 @@ MMM-TempsHA is a MagicMirror² module that displays temperature data from Home A
 2. Clone this repository:
    git clone https://github.com/cobaye49/MMM-TempsHA.git
 
-3. Restart MagicMirror:
-   pm2 restart mm
-
 ## Configuration
 
-Add the module to your `config.js`:
+Open your MagicMirror config file:
 
+```bash
+nano ~/MagicMirror/config/config.js
+```
+Add the following :
+
+```js
 {
   module: "MMM-TempsHA",
   position: "top_center",
@@ -45,6 +48,11 @@ Add the module to your `config.js`:
     ]
   }
 }
+```
+3. Restart MagicMirror:
+```bash
+   pm2 restart mm
+```
 
 ## Notes
 
