@@ -67,7 +67,7 @@ Add the following :
 ```
 Modify 'sensor.name' 
 
-3. Restart MagicMirror:
+4. Restart MagicMirror:
 ```bash
    pm2 restart mm
 ```
