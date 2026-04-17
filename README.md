@@ -44,27 +44,24 @@ nano ~/MagicMirror/config/config.js
 Add the following :
 
 ```js
-{
-  module: "MMM-TempsHA",
-  position: "top_center",
-  config: {
-    host: "192.168.1.231",
-    token: "YOUR_TOKEN",
-    sensors: [
-      {
-        entity: "sensor.name",
-        name: "name"
-      },
-      {
-        entity: "sensor.name",
-        name: "name"
-      },
-      {
-        entity: "sensor.name",
-        name: "name"
-      }
-    ]
-  }
+config: {
+  host: "YOUR HA IP",
+  token: "YOUR TOKEN",
+
+  entities: [
+    {
+      entity: "sensor.xxx", //remplace by the sensorID
+      label: "name"
+    },
+    {
+      entity: "sensor.xxx", //remplace by the sensorID
+      label: "name"
+    },
+    {
+      entity: "sensor.xxx", //remplace by the sensorID
+      label: "name"
+    }
+  ]
 }
 ```
 Modify 'sensor.name' 
