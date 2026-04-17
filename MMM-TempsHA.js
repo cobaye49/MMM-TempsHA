@@ -7,9 +7,7 @@ Module.register("MMM-TempsHA", {
   },
 
   start: function () {
-    console.log("✅ MMM-TempsHA chargé");
-
-    this.temps = {};
+    this.dataTemps = [];
 
     this.getData();
 
@@ -22,76 +20,75 @@ Module.register("MMM-TempsHA", {
     this.sendSocketNotification("GET_TEMPS", this.config);
   },
 
-  socketNotificationReceived: function(notification, payload) {
+  socketNotificationReceived: function (notification, payload) {
     if (notification === "TEMPS_RESULT") {
-      console.log("📩 Données reçues :", payload);
-      this.temps = payload;
+      this.dataTemps = payload;
       this.updateDom();
     }
   },
 
   getDom: function () {
-  const wrapper = document.createElement("div");
 
-  // ===== LOADING =====
-  if (Object.keys(this.temps).length === 0) {
-    const loading = document.createElement("div");
-    loading.innerHTML = "Chargement...";
-    loading.style.textAlign = "center";
-    wrapper.appendChild(loading);
+    const wrapper = document.createElement("div");
+
+    if (!this.dataTemps.length) {
+      wrapper.innerHTML = "Chargement...";
+      return wrapper;
+    }
+
+    const grid = document.createElement("div");
+    grid.style.display = "flex";
+    grid.style.gap = "20px";
+    grid.style.flexWrap = "wrap";
+
+    this.dataTemps.forEach(item => {
+
+      const configItem = this.config.entities.find(e =>
+        (typeof e === "string" ? e : e.entity) === item.entity
+      );
+
+      const label = typeof configItem === "object"
+        ? configItem.label || item.entity
+        : item.entity;
+
+      const value = parseFloat(item.state);
+
+      const card = document.createElement("div");
+      card.style.background = "#111";
+      card.style.padding = "12px";
+      card.style.borderRadius = "12px";
+      card.style.textAlign = "center";
+      card.style.minWidth = "100px";
+
+      const name = document.createElement("div");
+      name.innerHTML = label;
+      name.style.fontSize = "14px";
+
+      const temp = document.createElement("div");
+
+      if (isNaN(value)) {
+        temp.innerHTML = "—";
+        temp.style.color = "#888";
+      } else {
+        let color = "#2ecc71";
+        if (value >= 25) color = "#e74c3c";
+        else if (value <= 18) color = "#3498db";
+
+        temp.innerHTML = `${value}°C`;
+        temp.style.color = color;
+      }
+
+      temp.style.fontSize = "20px";
+      temp.style.fontWeight = "bold";
+
+      card.appendChild(name);
+      card.appendChild(temp);
+
+      grid.appendChild(card);
+    });
+
+    wrapper.appendChild(grid);
+
     return wrapper;
   }
-
-  // ===== CONTAINER GRID =====
-  const grid = document.createElement("div");
-  grid.style.display = "flex";
-  grid.style.justifyContent = "center";
-  grid.style.gap = "20px";
-
-  const names = {
-    "sensor.temp_chambre_temperature": "Chambre",
-    "sensor.temp_dahlia_temperature": "Dahlia",
-    "sensor.temp_salon_temperature": "Salon"
-  };
-
-  // ===== CARTES =====
-  for (let entity in this.temps) {
-
-    const value = parseFloat(this.temps[entity]);
-
-    // couleur dynamique
-    let color = "#2ecc71"; // normal
-    if (value >= 25) color = "#e74c3c";
-    else if (value <= 18) color = "#3498db";
-
-    const card = document.createElement("div");
-    card.style.background = "#111";
-    card.style.padding = "12px";
-    card.style.borderRadius = "12px";
-    card.style.textAlign = "center";
-    card.style.minWidth = "90px";
-    card.style.boxShadow = "0 0 10px rgba(0,0,0,0.5)";
-
-    const name = document.createElement("div");
-    name.innerHTML = names[entity] || entity;
-    name.style.fontSize = "14px";
-    name.style.marginBottom = "6px";
-
-    const temp = document.createElement("div");
-    temp.innerHTML = `${value}°C`;
-    temp.style.fontSize = "20px"; // 🔽 réduit
-    temp.style.fontWeight = "bold";
-    temp.style.color = color;
-
-    card.appendChild(name);
-    card.appendChild(temp);
-
-    grid.appendChild(card);
-  }
-
-  wrapper.appendChild(grid);
-
-  return wrapper;
-}
-
 });
